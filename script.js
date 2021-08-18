@@ -85,7 +85,9 @@ class App {
     }).addTo(this.#map);
 
     this.#map.on('click', this._showForm.bind(this));
-    this.#workouts.forEach(workout => this.renderMarkup(workout))
+    if (this.#workouts?.length > 0) { 
+      this.#workouts.forEach(workout => this.renderMarkup(workout));
+    }
   }
 
   _showForm(mapE) {
@@ -221,8 +223,10 @@ class App {
 
   _getFromLocalStorage() {
     const workouts = JSON.parse(localStorage.getItem('workouts'));
-    this.#workouts = workouts;
-    this.#workouts.forEach(workout => this.renderList(workout))
+    this.#workouts = workouts ? workouts : [];
+    if (this.#workouts?.length > 0) {
+      this.#workouts.forEach(workout => this.renderList(workout));
+    }
   }
 }
 
